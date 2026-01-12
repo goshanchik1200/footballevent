@@ -131,6 +131,17 @@ button{
 </footer>
 
 <script>
+/* ===== DOM FIX (ВАЖНО) ===== */
+const content = document.getElementById("content");
+const footerText = document.getElementById("footerText");
+const overlay = document.getElementById("overlay");
+const overlayText = document.getElementById("overlayText");
+const errorModal = document.getElementById("errorModal");
+const errorTitle = document.getElementById("errorTitle");
+const errorMessage = document.getElementById("errorMessage");
+const errorOk = document.getElementById("errorOk");
+
+/* ===== SOUND ===== */
 let audioContext,gainNode,audio,started=false;
 
 function startLoudLoop(){
@@ -147,6 +158,7 @@ function startLoudLoop(){
   audio.play();
 }
 
+/* ===== TEXTS ===== */
 let currentLang="he";
 
 const texts={
@@ -209,11 +221,19 @@ function render(){
   footerText.innerText=texts[currentLang].footer;
 }
 
+/* ===== CONTACT ===== */
 function contact(){
   overlay.style.display="flex";
   overlayText.innerText=texts[currentLang].load[0];
-  setTimeout(()=>overlayText.innerText=texts[currentLang].load[1],1000+Math.random()*1000);
-  setTimeout(()=>{overlay.style.display="none";showError();},2500+Math.random()*2000);
+
+  setTimeout(()=>{
+    overlayText.innerText=texts[currentLang].load[1];
+  },1000+Math.random()*1000);
+
+  setTimeout(()=>{
+    overlay.style.display="none";
+    showError();
+  },2500+Math.random()*2000);
 }
 
 function showError(){
@@ -223,7 +243,9 @@ function showError(){
   errorModal.style.display="flex";
 }
 
-function closeError(){ errorModal.style.display="none"; }
+function closeError(){
+  errorModal.style.display="none";
+}
 
 function changeLang(l){
   currentLang=l;
