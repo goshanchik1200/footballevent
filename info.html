@@ -6,10 +6,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
+/* ===== BASE ===== */
 body {
   margin:0;
   font-family:Arial, sans-serif;
   background:#eef2f6;
+  color:#111;
 }
 
 header {
@@ -22,37 +24,59 @@ header {
 }
 
 .brand { font-size:20px; font-weight:bold; }
-
-.language select {
-  padding:4px;
-  font-size:13px;
-}
+.language select { padding:4px; font-size:13px; color:#000; }
 
 .container {
   max-width:900px;
   margin:40px auto;
   background:#fff;
   padding:40px;
+  box-shadow:0 0 20px rgba(0,0,0,.15);
   line-height:1.9;
 }
 
+h1,h2,h3 { color:#0b2a5b; }
+
 .back {
   display:inline-flex;
+  align-items:center;
   gap:8px;
   margin-bottom:20px;
   color:#0b2a5b;
-  font-weight:bold;
   cursor:pointer;
   text-decoration:none;
+  font-weight:bold;
 }
 
-h1,h2 { color:#0b2a5b; }
+.back span { font-size:18px; }
 
 .footer {
   text-align:center;
   font-size:13px;
   color:#666;
-  padding:20px;
+  padding:25px;
+}
+
+/* ===== RTL ===== */
+html[dir="rtl"] body { direction: rtl; }
+html[dir="rtl"] p,
+html[dir="rtl"] h1,
+html[dir="rtl"] h2,
+html[dir="rtl"] h3,
+html[dir="rtl"] li {
+  direction: rtl;
+  unicode-bidi: plaintext;
+}
+
+/* ===== LTR ===== */
+html[dir="ltr"] body { direction: ltr; }
+html[dir="ltr"] p,
+html[dir="ltr"] h1,
+html[dir="ltr"] h2,
+html[dir="ltr"] h3,
+html[dir="ltr"] li {
+  direction: ltr;
+  unicode-bidi: normal;
 }
 </style>
 </head>
@@ -62,7 +86,7 @@ h1,h2 { color:#0b2a5b; }
 <header>
   <div class="brand">⚽ כדורגל נתניה</div>
   <div class="language">
-    <select id="langSelect">
+    <select onchange="changeLang(this.value)">
       <option value="he">עברית</option>
       <option value="en">English</option>
       <option value="fr">Français</option>
@@ -71,97 +95,134 @@ h1,h2 { color:#0b2a5b; }
   </div>
 </header>
 
-<div class="container">
-<a class="back" id="backBtn">← חזרה להזמנה</a>
+<div class="container" id="content">
 
-<h1 id="title">תוכנית ההזמנות המיוחדות – מידע מלא</h1>
+<a class="back" onclick="goBack()"><span>←</span> חזרה להזמנה</a>
 
-<p id="p1">
-כדורגל נתניה מפעילה תוכנית הזמנות ייחודית לאורך השנה.
+<h1>תוכנית ההזמנות המיוחדות – מידע מלא</h1>
+
+<p>
+כדורגל נתניה מפעילה לאורך השנה תוכנית הזמנות ייחודית, שמטרתה לאתר משתתפים
+בעלי זיקה מוכחת לעולם הכדורגל ולהעניק להם הזדמנות לקחת חלק באירועים מיוחדים,
+שאינם פתוחים לציבור הרחב.
 </p>
 
-<h2 id="h2">מה כולל האירוע?</h2>
-<ul id="list">
-  <li>משחק ייעודי</li>
-  <li>צוות מקצועי</li>
-  <li>ליווי לוגיסטי</li>
+<h2>רקע כללי על היוזמה</h2>
+<p>
+היוזמה נולדה מתוך רצון לחזק את הקשר בין הקהילה, השחקנים והמערכת המקצועית,
+ולאפשר חוויות עומק למשתתפים שנמצאו מתאימים על פי קריטריונים מוגדרים מראש.
+</p>
+
+<h2>מה כולל האירוע?</h2>
+<ul>
+  <li>משחק כדורגל ייעודי בפורמט מיוחד</li>
+  <li>נוכחות גורמים מקצועיים ואנשי צוות</li>
+  <li>תיאום מוקדם וליווי לוגיסטי</li>
+  <li>חוויה שאינה חלק מלוח משחקים רגיל</li>
 </ul>
+
+<h2>כיצד פועל מנגנון הבחירה?</h2>
+<p>
+מערכת הבחירה פועלת באופן אוטומטי ומבוססת נתונים.
+הבחירה אינה אקראית ואינה מבוססת הרשמה פתוחה.
+</p>
+
+<h2>מדוע קיבלת את ההזמנה?</h2>
+<p>
+הפרופיל שלך נמצא תואם לקריטריונים של אחד האירועים הקרובים.
+</p>
+
+<h2>שלבים לאחר אישור השתתפות</h2>
+<p>
+לאחר האישור יישלחו פרטים משלימים הכוללים מיקום, שעות והנחיות כלליות.
+</p>
+
+<h3>הבהרות חשובות</h3>
+<ul>
+  <li>מספר המקומות מוגבל</li>
+  <li>האירוע מיועד למוזמנים בלבד</li>
+  <li>אין להעביר את ההזמנה לצד שלישי</li>
+  <li>ייתכנו שינויים ארגוניים</li>
+</ul>
+
+<p>
+אנו ממליצים לקרוא מידע זה בעיון לפני קבלת החלטה.
+</p>
+
 </div>
 
-<div class="footer" id="footer">
-© 2026 ארגון הכדורגל נתניה
-</div>
+<div class="footer">© 2026 Netanya Football Organization</div>
 
 <script>
-const text = {
-he:{
-title:"תוכנית ההזמנות המיוחדות – מידע מלא",
-p1:"כדורגל נתניה מפעילה תוכנית הזמנות ייחודית לאורך השנה.",
-h2:"מה כולל האירוע?",
-list:["משחק ייעודי","צוות מקצועי","ליווי לוגיסטי"],
-back:"← חזרה להזמנה",
-footer:"© 2026 ארגון הכדורגל נתניה",
-dir:"rtl"
-},
-en:{
-title:"Special Invitation Program – Full Information",
-p1:"Netanya Football operates a selective invitation program.",
-h2:"What does the event include?",
-list:["Dedicated match","Professional staff","Logistical support"],
-back:"← Back to invitation",
-footer:"© 2026 Netanya Football Organization",
-dir:"ltr"
-},
-fr:{
-title:"Programme d'invitation spéciale",
-p1:"Netanya Football organise un programme sélectif.",
-h2:"Contenu de l'événement",
-list:["Match dédié","Équipe professionnelle","Support logistique"],
-back:"← Retour à l'invitation",
-footer:"© 2026 Organisation de football de Netanya",
-dir:"ltr"
-},
-ar:{
-title:"برنامج الدعوة الخاصة",
-p1:"تنظم كرة قدم نتانيا برنامج دعوة انتقائي.",
-h2:"محتوى الحدث",
-list:["مباراة مخصصة","طاقم محترف","دعم لوجستي"],
-back:"← العودة إلى الدعوة",
-footer:"© 2026 منظمة كرة القدم نتانيا",
-dir:"rtl"
+/* ===== SAFE BACK ===== */
+function goBack(){
+  window.location.href = "./index.html";
 }
+
+/* ===== TRANSLATIONS ===== */
+const translations = {
+en: `
+<a class="back" onclick="goBack()"><span>←</span> Back to invitation</a>
+<h1>Special Invitation Program – Full Information</h1>
+<p>Netanya Football operates a selective invitation initiative throughout the year.</p>
+<h2>Program background</h2>
+<p>The initiative strengthens community and professional connections.</p>
+<h2>What does the event include?</h2>
+<ul>
+<li>Dedicated match format</li>
+<li>Professional staff presence</li>
+<li>Logistical coordination</li>
+</ul>
+<h2>Selection mechanism</h2>
+<p>Automatic data-based selection. Not open registration.</p>
+<h2>Why you were selected</h2>
+<p>Your profile matched the event criteria.</p>
+<h2>After confirmation</h2>
+<p>Additional details will be sent closer to the date.</p>
+`,
+fr: `
+<a class="back" onclick="goBack()"><span>←</span> Retour à l'invitation</a>
+<h1>Programme d'invitation spéciale – Informations complètes</h1>
+<p>Netanya Football organise une initiative sélective.</p>
+<h2>Contexte</h2>
+<p>Renforcer le lien communautaire et professionnel.</p>
+<h2>Contenu de l'événement</h2>
+<ul>
+<li>Match dédié</li>
+<li>Équipe professionnelle</li>
+</ul>
+<h2>Sélection</h2>
+<p>Sélection automatique basée sur les données.</p>
+`,
+ar: `
+<a class="back" onclick="goBack()"><span>←</span> العودة إلى الدعوة</a>
+<h1>برنامج الدعوة الخاصة – معلومات كاملة</h1>
+<p>تنظم كرة قدم نتانيا مبادرة انتقائية.</p>
+<h2>الخلفية</h2>
+<p>تعزيز الروابط المجتمعية والمهنية.</p>
+<h2>محتوى الحدث</h2>
+<ul>
+<li>مباراة مخصصة</li>
+<li>طاقم محترف</li>
+</ul>
+<h2>آلية الاختيار</h2>
+<p>اختيار تلقائي قائم على البيانات.</p>
+`
 };
 
-const select = document.getElementById("langSelect");
-const backBtn = document.getElementById("backBtn");
+function changeLang(lang){
+  if(lang === "he"){
+    document.documentElement.lang = "he";
+    document.documentElement.dir = "rtl";
+    location.reload();
+    return;
+  }
 
-backBtn.addEventListener("click", () => {
-  window.location.href = "index.html";
-});
-
-select.addEventListener("change", () => {
-  applyLang(select.value);
-});
-
-function applyLang(lang){
-  const t = text[lang];
   document.documentElement.lang = lang;
-  document.documentElement.dir = t.dir;
-  title.innerText = t.title;
-  p1.innerText = t.p1;
-  h2.innerText = t.h2;
-  backBtn.innerText = t.back;
-  footer.innerText = t.footer;
-  list.innerHTML = "";
-  t.list.forEach(i=>{
-    const li=document.createElement("li");
-    li.innerText=i;
-    list.appendChild(li);
-  });
+  document.documentElement.dir = (lang === "ar") ? "rtl" : "ltr";
+  document.getElementById("content").innerHTML = translations[lang];
 }
-
-applyLang("he");
 </script>
 
 </body>
-</html>
+</html
