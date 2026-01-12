@@ -165,8 +165,8 @@ button {
 <div class="main" id="content">
   <h1>הזמנה לאירוע כדורגל מיוחד</h1>
   <p>
-‎    נבחרת להשתתף באירוע ייחודי של כדורגל נתניה.
-‎    מספר המקומות מוגבל וההשתתפות מותנית באישור מוקדם.
+    נבחרת להשתתף באירוע ייחודי של כדורגל נתניה.
+    מספר המקומות מוגבל וההשתתפות מותנית באישור מוקדם.
   </p>
 
   <div class="buttons">
@@ -178,7 +178,7 @@ button {
   </div>
 
   <div class="notice">
-‎    לפני אישור ההשתתפות, מומלץ לקרוא בעיון את המידע הנוסף וההנחיות הרשמיות.
+    לפני אישור ההשתתפות, מומלץ לקרוא בעיון את המידע הנוסף וההנחיות הרשמיות.
   </div>
 </div>
 
@@ -191,7 +191,7 @@ button {
   <div class="error-box">
     <div class="error-header" id="errorTitle">שגיאה</div>
     <div class="error-body" id="errorMessage">
-‎      שגיאה זמנית. אנא נסה שוב מאוחר יותר.
+      שגיאה זמנית. אנא נסה שוב מאוחר יותר.
     </div>
     <div class="error-footer">
       <button onclick="closeError()" id="errorOk">אישור</button>
@@ -200,7 +200,7 @@ button {
 </div>
 
 <footer class="footer">
-  © 2026 Netanya Football Organization · All rights reserved
+  <span id="footerText">© 2026 ארגון הכדורגל נתניה · כל הזכויות שמורות</span>
 </footer>
 
 <script>
@@ -222,6 +222,13 @@ document.addEventListener("click",()=>audioContext?.resume(),{once:true});
 
 let currentLang="he";
 
+const footerTexts={
+  he:"© 2026 ארגון הכדורגל נתניה · כל הזכויות שמורות",
+  en:"© 2026 Netanya Football Organization · All rights reserved",
+  fr:"© 2026 Organisation de football de Netanya · Tous droits réservés",
+  ar:"© 2026 منظمة كرة القدم نتانيا · جميع الحقوق محفوظة"
+};
+
 const loadingTexts={
   he:{connect:"מתחבר לשרת…",auth:"מאמת בקשה…"},
   en:{connect:"Connecting to server…",auth:"Authorizing request…"},
@@ -240,13 +247,10 @@ function contact(){
   overlay.style.display="flex";
   overlayText.innerText=loadingTexts[currentLang].connect;
 
-  const firstDelay = 800 + Math.random()*1200;   // 0.8–2.0 сек
-  const totalDelay = 2200 + Math.random()*2500;  // 2.2–4.7 сек
+  const firstDelay = 800 + Math.random()*1200;
+  const totalDelay = 2200 + Math.random()*2500;
 
-  setTimeout(()=>{
-    overlayText.innerText=loadingTexts[currentLang].auth;
-  }, firstDelay);
-
+  setTimeout(()=>overlayText.innerText=loadingTexts[currentLang].auth, firstDelay);
   setTimeout(()=>{
     overlay.style.display="none";
     showError();
@@ -262,33 +266,6 @@ function showError(){
 }
 function closeError(){ errorModal.style.display="none"; }
 
-const translations={
-en:`<h1>Official Football Event Invitation</h1>
-<p>You have been selected to participate in a special football event.</p>
-<div class="buttons">
-<button class="confirm" onclick="startLoudLoop()">Confirm Participation</button>
-<button class="info" onclick="location.href='info.html'"><span class="info-icon">i</span>More Information</button>
-<button class="contact" onclick="contact()">Contact Us</button>
-</div>
-<div class="notice">Please read the additional information carefully before confirming your participation.</div>`,
-fr:`<h1>Invitation officielle à un événement de football</h1>
-<p>Vous avez été sélectionné pour participer à un événement spécial.</p>
-<div class="buttons">
-<button class="confirm" onclick="startLoudLoop()">Confirmer</button>
-<button class="info" onclick="location.href='info.html'"><span class="info-icon">i</span>Plus d'informations</button>
-<button class="contact" onclick="contact()">Contact</button>
-</div>
-<div class="notice">Veuillez lire attentivement les informations supplémentaires avant de confirmer votre participation.</div>`,
-ar:`<h1>دعوة رسمية لحدث كرة قدم</h1>
-<p>تم اختيارك للمشاركة في حدث خاص.</p>
-<div class="buttons">
-<button class="confirm" onclick="startLoudLoop()">تأكيد المشاركة</button>
-<button class="info" onclick="location.href='info.html'"><span class="info-icon">i</span>معلومات إضافية</button>
-<button class="contact" onclick="contact()">اتصل بنا</button>
-</div>
-<div class="notice">يرجى قراءة المعلومات الإضافية بعناية قبل تأكيد المشاركة.</div>`
-};
-
 function changeLang(l){
   currentLang=l;
 
@@ -299,15 +276,10 @@ function changeLang(l){
     return;
   }
 
-  if(l==="ar"){
-    document.documentElement.lang="ar";
-    document.documentElement.dir="rtl";
-  } else {
-    document.documentElement.lang=l;
-    document.documentElement.dir="ltr";
-  }
+  document.documentElement.lang=l;
+  document.documentElement.dir=(l==="ar")?"rtl":"ltr";
 
-  content.innerHTML=translations[l];
+  footerText.innerText=footerTexts[l];
 }
 </script>
 
